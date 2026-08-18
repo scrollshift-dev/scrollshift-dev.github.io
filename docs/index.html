@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)">
+	<meta name="description" content="ScrollShift brings responsive, velocity-sensitive mouse-wheel scrolling to Linux.">
+	<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../assets/css/style.css">
+	<script>document.documentElement.dataset.theme=localStorage.getItem('scrollshift-theme')||'system';</script>
+	<title>Documentation · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="./index.html">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="docs-shell shell">
+			<aside class="docs-nav">
+				<p>Documentation</p>
+				<a class="active" href="./index.html">Introduction</a>
+				<a href="./architecture.html">Architecture</a>
+				<a href="./configuration.html">Configuration</a>
+				<a href="./development.html">Development</a>
+				<a href="./roadmap.html">Roadmap</a>
+			</aside>
+			<article class="docs-content">
+				<p class="eyebrow">Documentation</p>
+				<h1>ScrollShift</h1>
+				<p class="docs-lede">ScrollShift is an experimental Linux utility for intent-aware mouse-wheel scrolling: precise under slow input, strongly accelerated under rapid input, while preserving normal pointer behaviour.</p>
+				<div class="callout"><strong>Status: active dogfooding.</strong> Transparent capture, forced-crash recovery, receiver reconnect and suspend/resume have real-hardware evidence on the primary Linux test machine. Ubuntu/GNOME on Wayland has also passed an initial application matrix across Chrome, VS Code, the terminal and Files; one PDF viewer remained usable but showed weaker, jumpier acceleration. Broader desktop and hardware coverage remains the current frontier.</div>
+				<h2 id="goal">The goal</h2>
+				<p>ScrollShift intercepts wheel events below the application layer, estimates scrolling intent from physical wheel cadence, and transforms only wheel motion before forwarding it through a virtual Linux input device. Fine-grained output may help transitions, but acceleration—not animation for its own sake—is the primary product goal.</p>
+				<pre><code>physical mouse
+    ↓
+evdev input
+    ↓
+ScrollShift
+    ↓
+velocity / acceleration model
+    ↓
+uinput virtual pointer
+    ↓
+libinput → desktop → application</code></pre>
+				<h2 id="principles">Design principles</h2>
+				<ul>
+					<li><strong>Fail safely.</strong> Losing ScrollShift must not mean losing control of the pointer.</li>
+					<li><strong>Preserve semantics.</strong> Movement, buttons and unsupported input should pass through unchanged.</li>
+					<li><strong>Stay compositor-agnostic where possible.</strong> Prefer the Linux input layer over application-specific hooks.</li>
+					<li><strong>Preserve intent.</strong> Slow input should remain slow and precise; rapid spins should become unmistakably faster.</li>
+					<li><strong>Measure the feel.</strong> Latency, stopping and reversal behaviour matter more than decorative animation.</li>
+				</ul>
+				<p class="next"><a href="./architecture.html">Architecture →</a></p>
+			</article>
+		</div>
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="../assets/js/script.js"></script>
+</body>
+</html>

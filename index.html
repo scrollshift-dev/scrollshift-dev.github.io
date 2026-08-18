@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)">
+	<meta name="description" content="ScrollShift brings responsive, velocity-sensitive mouse-wheel scrolling to Linux.">
+	<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<script>document.documentElement.dataset.theme=localStorage.getItem('scrollshift-theme')||'system';</script>
+	<title>Smooth scrolling for Linux · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="./" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="docs/index.html">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<section class="hero shell">
+			<p class="eyebrow">Responsive wheel scrolling for Linux</p>
+			<h1>Your mouse wheel,<br><em>at the speed you mean.</em></h1>
+			<p class="lede">ScrollShift keeps deliberate wheel movement precise and makes rapid wheel spins travel farther—system-wide, without changing normal pointer behaviour.</p>
+			<div class="hero-actions">
+				<a class="button primary" href="docs/index.html">Read the docs <span>→</span></a>
+				<a class="button secondary" href="https://github.com/ScrollShift/ScrollShift">View on GitHub</a>
+			</div>
+			<div class="scroll-demo" aria-hidden="true">
+				<div class="wheel"><span></span></div>
+				<div class="demo-track"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+			</div>
+		</section>
+		<section class="proof shell" aria-label="ScrollShift principles">
+			<article><strong>System-wide</strong><span>Designed below the application layer for Wayland, XWayland and X11.</span></article>
+			<article><strong>Native</strong><span>A small C++ daemon built around the Linux input stack.</span></article>
+			<article><strong>Intent-aware</strong><span>Slow wheel input stays controlled. Fast wheel input accelerates for traversal.</span></article>
+		</section>
+		<section class="closing shell">
+			<p>Active dogfooding</p>
+			<h2>Precise when you scroll slowly. Fast when you mean fast.</h2>
+			<a href="docs/architecture.html">See how it works →</a>
+		</section>
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="assets/js/script.js"></script>
+</body>
+</html>

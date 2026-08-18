@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)">
+	<meta name="description" content="ScrollShift brings responsive, velocity-sensitive mouse-wheel scrolling to Linux.">
+	<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../assets/css/style.css">
+	<script>document.documentElement.dataset.theme=localStorage.getItem('scrollshift-theme')||'system';</script>
+	<title>Architecture · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="./index.html">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="docs-shell shell">
+			<aside class="docs-nav">
+				<p>Documentation</p>
+				<a href="./index.html">Introduction</a>
+				<a class="active" href="./architecture.html">Architecture</a>
+				<a href="./configuration.html">Configuration</a>
+				<a href="./development.html">Development</a>
+				<a href="./roadmap.html">Roadmap</a>
+			</aside>
+			<article class="docs-content">
+				<p class="eyebrow">Documentation</p><h1>Architecture</h1>
+				<p class="docs-lede">The preferred architecture sits beneath Wayland and X11 clients: capture a physical pointer through Linux evdev, preserve its non-wheel events, transform wheel motion, then expose the result as a virtual pointer through uinput.</p>
+				<h2>Target pipeline</h2>
+				<pre><code>/dev/input/eventX
+        ↓
+ device discovery
+        ↓
+ exclusive capture
+        ↓
+ event classifier
+   ↙          ↘
+pass-through   wheel model
+   ↘          ↙
+  virtual uinput pointer
+        ↓
+     libinput
+        ↓
+ Wayland / XWayland / X11</code></pre>
+				<h2>Why this layer?</h2>
+				<p>Application plugins would only solve scrolling in individual programs. A compositor-specific extension would fragment support. A virtual kernel input device gives us a plausible common path through the same input stack applications already use.</p>
+				<h2>The hard parts</h2>
+				<p>Capturing input is easy compared with capturing it <em>safely</em>. ScrollShift must avoid event loops, mirror buttons and movement without perceptible latency, survive device hotplug, preserve horizontal and high-resolution wheels, and recover cleanly if the daemon exits unexpectedly.</p>
+				<h2>Scroll model</h2>
+				<p>The first production-oriented model is intentionally small: physical detent cadence feeds a deterministic velocity estimator, isolated/slow input remains at baseline distance, rapid same-direction input raises a bounded acceleration multiplier, and direction reversal resets acceleration immediately. Momentum/decay will only be added if it improves responsiveness rather than making the wheel feel floaty.</p>
+				<div class="callout"><strong>Architecture status.</strong> Virtual output, transparent pass-through, forced process death, receiver reconnect and suspend/resume have survived real-hardware tests. On Ubuntu/GNOME under Wayland, Chrome, VS Code, the terminal and Files also behaved well with the service enabled; a PDF viewer remained usable but felt weaker/jumpier. The current frontier is broader desktop/device diversity plus long-running resource and latency evidence.</div>
+				<p class="next"><a href="./development.html">Development →</a></p>
+			</article>
+		</div>
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="../assets/js/script.js"></script>
+</body>
+</html>

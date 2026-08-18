@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)">
+	<meta name="description" content="ScrollShift brings responsive, velocity-sensitive mouse-wheel scrolling to Linux.">
+	<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../assets/css/style.css">
+	<script>document.documentElement.dataset.theme=localStorage.getItem('scrollshift-theme')||'system';</script>
+	<title>Development · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="./index.html">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="docs-shell shell">
+			<aside class="docs-nav">
+				<p>Documentation</p>
+				<a href="./index.html">Introduction</a>
+				<a href="./architecture.html">Architecture</a>
+				<a href="./configuration.html">Configuration</a>
+				<a class="active" href="./development.html">Development</a>
+				<a href="./roadmap.html">Roadmap</a>
+			</aside>
+			<article class="docs-content">
+				<p class="eyebrow">Documentation</p><h1>Development</h1>
+				<p class="docs-lede">ScrollShift is a C++20 project built with CMake. Early development focuses on observable input experiments rather than prematurely building a desktop UI.</p>
+				<h2>Build</h2>
+				<pre><code>make
+make test
+./build/scrollshift --help</code></pre>
+				<h2>Development tools</h2>
+				<p><code>scrollshift devices</code>, <code>monitor</code>, <code>doctor</code> and <code>environment</code> provide the project's own reconnaissance path. The automated suite now includes recorded hardware fixtures, complete wheel-semantics tests and a fixed-seed 100,000-packet property campaign, so most transform work can be validated without grabbing a real mouse.</p>
+				<h2>Safety while experimenting</h2>
+				<p>Exclusive input grabs can temporarily prevent the desktop from receiving events from a device. ScrollShift has passed normal shutdown, forced <code>SIGKILL</code>, receiver unplug/replug and suspend/resume recovery on the primary test machine; development should continue to preserve that fail-open behavior as a hard invariant.</p>
+				<h2>Current compatibility evidence</h2>
+				<p>The first desktop compatibility pass was run on Linux 7.0, Ubuntu/GNOME and Wayland. Chrome, VS Code, the terminal and Files all behaved well with the balanced profile. A PDF viewer remained usable but showed weaker, jumpier acceleration. These results are deliberately scoped to that environment; they are evidence, not a claim of universal Wayland compatibility.</p>
+				<p class="next"><a href="./roadmap.html">Roadmap →</a></p>
+			</article>
+		</div>
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="../assets/js/script.js"></script>
+</body>
+</html>

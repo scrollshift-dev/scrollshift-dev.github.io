@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#11110f" media="(prefers-color-scheme: dark)">
+	<meta name="description" content="ScrollShift brings responsive, velocity-sensitive mouse-wheel scrolling to Linux.">
+	<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../assets/css/style.css">
+	<script>document.documentElement.dataset.theme=localStorage.getItem('scrollshift-theme')||'system';</script>
+	<title>Configuration · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="./index.html">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="docs-shell shell">
+			<aside class="docs-nav">
+				<p>Documentation</p>
+				<a href="./index.html">Introduction</a>
+				<a href="./architecture.html">Architecture</a>
+				<a class="active" href="./configuration.html">Configuration</a>
+				<a href="./development.html">Development</a>
+				<a href="./roadmap.html">Roadmap</a>
+			</aside>
+			<article class="docs-content">
+				<p class="eyebrow">Documentation</p><h1>Configuration & service</h1>
+				<p class="docs-lede">ScrollShift now has a deliberately small persistent configuration and a systemd service for everyday dogfooding. Event-node numbers are never persisted because <code>/dev/input/eventN</code> is not stable across boots or reconnects.</p>
+				<h2>Install</h2>
+				<pre><code>make test
+sudo make install
+sudo scrollshift devices
+sudo scrollshift configure /dev/input/eventX
+sudo scrollshift doctor
+sudo scrollshift service enable</code></pre>
+				<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p>
+				<h2>Current format</h2>
+				<pre><code>device_vendor = 0x3151
+device_product = 0x402d
+device_name = Example Wireless Mouse
+profile = balanced
+reconnect_ms = 1000</code></pre>
+				<p>The preferred <code>balanced</code> profile is intentionally frozen while longer-term dogfooding continues. Configuration stays small: expose user concepts, not every internal tuning constant.</p>
+				<h2>Service controls</h2>
+				<pre><code>scrollshift service status
+scrollshift service logs
+sudo scrollshift service restart
+sudo scrollshift service stop
+sudo scrollshift service start
+sudo scrollshift service disable</code></pre>
+				<div class="callout"><strong>Current permission model.</strong> Early releases use a root system service for evdev capture and uinput creation rather than broadly loosening access to input devices. A less-privileged model can be evaluated later without weakening the initial safety boundary.</div>
+			</article>
+		</div>
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="../assets/js/script.js"></script>
+</body>
+</html>
