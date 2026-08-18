@@ -1,0 +1,30 @@
+<div class="docs-shell shell">
+	@input("templates/docs-nav.html")
+	<article class="docs-content">
+		<p class="eyebrow">Documentation</p><h1>Configuration & service</h1>
+		<p class="docs-lede">ScrollShift now has a deliberately small persistent configuration and a systemd service for everyday dogfooding. Event-node numbers are never persisted because <code>/dev/input/eventN</code> is not stable across boots or reconnects.</p>
+		<h2>Install</h2>
+		<pre><code>make test
+sudo make install
+sudo scrollshift devices
+sudo scrollshift configure /dev/input/eventX
+sudo scrollshift doctor
+sudo scrollshift service enable</code></pre>
+		<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p>
+		<h2>Current format</h2>
+		<pre><code>device_vendor = 0x3151
+device_product = 0x402d
+device_name = Example Wireless Mouse
+profile = balanced
+reconnect_ms = 1000</code></pre>
+		<p>The preferred <code>balanced</code> profile is intentionally frozen while longer-term dogfooding continues. Configuration stays small: expose user concepts, not every internal tuning constant.</p>
+		<h2>Service controls</h2>
+		<pre><code>scrollshift service status
+scrollshift service logs
+sudo scrollshift service restart
+sudo scrollshift service stop
+sudo scrollshift service start
+sudo scrollshift service disable</code></pre>
+		<div class="callout"><strong>Current permission model.</strong> Early releases use a root system service for evdev capture and uinput creation rather than broadly loosening access to input devices. A less-privileged model can be evaluated later without weakening the initial safety boundary.</div>
+	</article>
+</div>

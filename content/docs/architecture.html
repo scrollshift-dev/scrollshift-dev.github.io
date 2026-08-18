@@ -1,0 +1,31 @@
+<div class="docs-shell shell">
+	@input("templates/docs-nav.html")
+	<article class="docs-content">
+		<p class="eyebrow">Documentation</p><h1>Architecture</h1>
+		<p class="docs-lede">The preferred architecture sits beneath Wayland and X11 clients: capture a physical pointer through Linux evdev, preserve its non-wheel events, transform wheel motion, then expose the result as a virtual pointer through uinput.</p>
+		<h2>Target pipeline</h2>
+		<pre><code>/dev/input/eventX
+        ↓
+ device discovery
+        ↓
+ exclusive capture
+        ↓
+ event classifier
+   ↙          ↘
+pass-through   wheel model
+   ↘          ↙
+  virtual uinput pointer
+        ↓
+     libinput
+        ↓
+ Wayland / XWayland / X11</code></pre>
+		<h2>Why this layer?</h2>
+		<p>Application plugins would only solve scrolling in individual programs. A compositor-specific extension would fragment support. A virtual kernel input device gives us a plausible common path through the same input stack applications already use.</p>
+		<h2>The hard parts</h2>
+		<p>Capturing input is easy compared with capturing it <em>safely</em>. ScrollShift must avoid event loops, mirror buttons and movement without perceptible latency, survive device hotplug, preserve horizontal and high-resolution wheels, and recover cleanly if the daemon exits unexpectedly.</p>
+		<h2>Scroll model</h2>
+		<p>The first production-oriented model is intentionally small: physical detent cadence feeds a deterministic velocity estimator, isolated/slow input remains at baseline distance, rapid same-direction input raises a bounded acceleration multiplier, and direction reversal resets acceleration immediately. Momentum/decay will only be added if it improves responsiveness rather than making the wheel feel floaty.</p>
+		<div class="callout"><strong>Architecture status.</strong> Virtual output, transparent pass-through, forced process death, receiver reconnect and suspend/resume have survived real-hardware tests. On Ubuntu/GNOME under Wayland, Chrome, VS Code, the terminal and Files also behaved well with the service enabled; a PDF viewer remained usable but felt weaker/jumpier. The current frontier is broader desktop/device diversity plus long-running resource and latency evidence.</div>
+		<p class="next"><a href="@pathto('docs/development')">Development →</a></p>
+	</article>
+</div>

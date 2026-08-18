@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+	@input("templates/head.html")
+	<title>$[title] · ScrollShift</title>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="@pathto('/')" aria-label="ScrollShift home"><span class="brand-mark" aria-hidden="true">◉</span><span>ScrollShift</span></a>
+		<nav class="site-nav" aria-label="Primary">
+			<a href="@pathto('docs/index')">Docs</a>
+			<a href="https://github.com/ScrollShift/ScrollShift">GitHub</a>
+			<div class="theme-control" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+				<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+			</div>
+		</nav>
+	</header>
+	<main>
+		@content
+	</main>
+	<footer class="site-footer"><span>ScrollShift</span><span>Native responsive wheel scrolling for Linux.</span></footer>
+	<script src="@pathto('assets/js/script')"></script>
+</body>
+</html>

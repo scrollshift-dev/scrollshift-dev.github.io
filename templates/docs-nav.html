@@ -1,0 +1,8 @@
+<aside class="docs-nav">
+	<p>Documentation</p>
+	@if(name == 'docs/index'){<a class="active" href="@pathto('docs/index')">Introduction</a>}@if(name != 'docs/index'){<a href="@pathto('docs/index')">Introduction</a>}
+	@if(name == 'docs/architecture'){<a class="active" href="@pathto('docs/architecture')">Architecture</a>}@if(name != 'docs/architecture'){<a href="@pathto('docs/architecture')">Architecture</a>}
+	@if(name == 'docs/configuration'){<a class="active" href="@pathto('docs/configuration')">Configuration</a>}@if(name != 'docs/configuration'){<a href="@pathto('docs/configuration')">Configuration</a>}
+	@if(name == 'docs/development'){<a class="active" href="@pathto('docs/development')">Development</a>}@if(name != 'docs/development'){<a href="@pathto('docs/development')">Development</a>}
+	@if(name == 'docs/roadmap'){<a class="active" href="@pathto('docs/roadmap')">Roadmap</a>}@if(name != 'docs/roadmap'){<a href="@pathto('docs/roadmap')">Roadmap</a>}
+</aside>

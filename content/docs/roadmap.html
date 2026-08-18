@@ -1,0 +1,20 @@
+<div class="docs-shell shell">
+	@input("templates/docs-nav.html")
+	<article class="docs-content">
+		<p class="eyebrow">Documentation</p><h1>Roadmap</h1>
+		<p class="docs-lede">The first development phase is structured around retiring input-safety and compatibility risks before adding polish.</p>
+		<ol class="roadmap-list">
+			<li><strong>Input reconnaissance — complete.</strong> Enumerate candidate mice and preserve real wheel traces as fixtures.</li>
+			<li><strong>Virtual pointer spike — complete enough.</strong> Validate temporary uinput output on a real desktop and use the result to refine the product goal.</li>
+			<li><strong>Transparent pass-through — complete.</strong> Mirror a real pointer through uinput without obvious behavioural regressions.</li>
+			<li><strong>Safe exclusive capture — complete.</strong> Normal shutdown, forced SIGKILL, receiver disappearance/reconnect and suspend/resume recover cleanly on the primary test machine.</li>
+			<li><strong>Velocity engine v1 — active.</strong> The original balanced 1×→4× cadence response is the preferred and provisionally frozen daily-use profile; momentum remains intentionally deferred.</li>
+			<li><strong>Wheel semantics — complete at engine level.</strong> Low/high-resolution, horizontal, burst, mixed-axis, reversal and duplicate-event packet forms have deterministic regression coverage.</li>
+			<li><strong>Daemon + configuration — complete for the initial model.</strong> Stable device identity, hotplug rediscovery, systemd supervision, diagnostics and minimal config are working.</li>
+			<li><strong>Desktop compatibility — active, initial Wayland/GNOME pass complete.</strong> Chrome, VS Code, the terminal and Files passed on Ubuntu/GNOME under Wayland; one PDF viewer was usable but weaker/jumpier. XWayland, X11, other compositors/desktops and broader app coverage remain.</li>
+			<li><strong>Feel and latency tuning.</strong> Optimize slow-scroll precision, fast traversal, stopping and reversal; smoothness is secondary.</li>
+			<li><strong>Hardening and first release.</strong> Hotplug, failures, sanitizers, packaging and clean-machine tests.</li>
+		</ol>
+		<div class="callout"><strong>Roadmap, not promises.</strong> Checkpoints can change when experiments disprove an assumption. We prefer changing the design to preserving a bad plan.</div>
+	</article>
+</div>
