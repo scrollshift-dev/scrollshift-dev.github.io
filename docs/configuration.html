@@ -45,7 +45,7 @@ sudo scrollshift devices
 sudo scrollshift configure /dev/input/eventX
 sudo scrollshift doctor
 sudo scrollshift service enable</code></pre>
-				<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p>
+				<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p><p>If no matching pointer is present, the daemon waits. If the stored identity matches more than one candidate, ScrollShift refuses to grab a device instead of guessing. Its own virtual uinput device is excluded from capture candidates to prevent reinjection loops.</p>
 				<h2>Current format</h2>
 				<pre><code>device_vendor = 0x3151
 device_product = 0x402d

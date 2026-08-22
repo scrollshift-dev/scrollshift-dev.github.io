@@ -37,11 +37,12 @@
 			</aside>
 			<article class="docs-content">
 				<p class="eyebrow">Documentation</p><h1>Development</h1>
-				<p class="docs-lede">ScrollShift is a C++20 project built with CMake. Early development focuses on observable input experiments rather than prematurely building a desktop UI.</p>
+				<p class="docs-lede">ScrollShift is a C++20 project built with CMake. Development remains evidence-first: input transforms are kept deterministic and fixture-testable, while real-hardware experiments are used for device ownership, recovery, compatibility and feel.</p>
 				<h2>Build</h2>
 				<pre><code>make
 make test
 ./build/scrollshift --help</code></pre>
+		<p>The equivalent CMake flow is <code>cmake -S . -B build</code>, <code>cmake --build build</code> and <code>ctest --test-dir build --output-on-failure</code>. ScrollShift requires Linux, C++20 and CMake 3.20+.</p>
 				<h2>Development tools</h2>
 				<p><code>scrollshift devices</code>, <code>monitor</code>, <code>doctor</code> and <code>environment</code> provide the project's own reconnaissance path. The automated suite now includes recorded hardware fixtures, complete wheel-semantics tests and a fixed-seed 100,000-packet property campaign, so most transform work can be validated without grabbing a real mouse.</p>
 				<h2>Safety while experimenting</h2>

@@ -38,7 +38,7 @@
 			<article class="docs-content">
 				<p class="eyebrow">Documentation</p>
 				<h1>ScrollShift</h1>
-				<p class="docs-lede">ScrollShift is an experimental Linux utility for intent-aware mouse-wheel scrolling: precise under slow input, strongly accelerated under rapid input, while preserving normal pointer behaviour.</p>
+				<p class="docs-lede">ScrollShift is a developmental Linux utility for intent-aware mouse-wheel scrolling: precise under slow input, strongly accelerated under rapid input, while preserving normal pointer behaviour.</p>
 				<div class="callout"><strong>Status: active dogfooding.</strong> Transparent capture, forced-crash recovery, receiver reconnect and suspend/resume have real-hardware evidence on the primary Linux test machine. Ubuntu/GNOME on Wayland has also passed an initial application matrix across Chrome, VS Code, the terminal and Files; one PDF viewer remained usable but showed weaker, jumpier acceleration. Broader desktop and hardware coverage remains the current frontier.</div>
 				<h2 id="goal">The goal</h2>
 				<p>ScrollShift intercepts wheel events below the application layer, estimates scrolling intent from physical wheel cadence, and transforms only wheel motion before forwarding it through a virtual Linux input device. Fine-grained output may help transitions, but acceleration—not animation for its own sake—is the primary product goal.</p>
