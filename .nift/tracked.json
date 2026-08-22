@@ -2,7 +2,7 @@
   "tracked": [
     {
       "name": "/",
-      "title": "Smooth scrolling for Linux",
+      "title": "Responsive wheel scrolling for Linux",
       "template": "templates/template.html"
     },
     {
