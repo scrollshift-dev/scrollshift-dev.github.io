@@ -4,9 +4,11 @@
 		<p class="eyebrow">Documentation</p><h1>Configuration & service</h1>
 		<p class="docs-lede">ScrollShift now has a deliberately small persistent configuration and a systemd service for everyday dogfooding. Event-node numbers are never persisted because <code>/dev/input/eventN</code> is not stable across boots or reconnects.</p>
 		<h2>Install</h2>
+		<pre><code>curl -fsSL https://scrollshift-dev.github.io/install | sh</code></pre>
+		<p>Installs the <code>scrollshift</code> binary to <code>~/.local/bin</code> by default, verifying the release SHA-256 checksum and never using sudo. Set <code>SCROLLSHIFT_INSTALL_DIR</code> to choose another directory. ScrollShift is a Linux input daemon, so the binary then needs the root-level service setup below. Or build from source:</p>
 		<pre><code>make test
-sudo make install
-sudo scrollshift devices
+sudo make install</code></pre>
+		<pre><code>sudo scrollshift devices
 sudo scrollshift configure /dev/input/eventX
 sudo scrollshift doctor
 sudo scrollshift service enable</code></pre>
