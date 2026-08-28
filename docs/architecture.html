@@ -24,9 +24,20 @@
 				<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
 			</div>
 		</nav>
+		<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle aria-label="Open navigation"><span></span><span></span></button>
 	</header>
+	<div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+		<a href="./index.html">Docs</a>
+		<a href="https://github.com/scrollshift-dev/ScrollShift">GitHub</a>
+		<div class="theme-control" role="group" aria-label="Theme">
+			<button type="button" data-theme-choice="system" aria-label="Use system theme">A</button>
+			<button type="button" data-theme-choice="light" aria-label="Use light theme">☀</button>
+			<button type="button" data-theme-choice="dark" aria-label="Use dark theme">☾</button>
+		</div>
+	</div>
 	<main>
 		<div class="docs-shell shell">
+			<button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
 			<aside class="docs-nav">
 				<p>Documentation</p>
 				<a href="./index.html">Introduction</a>
@@ -35,6 +46,7 @@
 				<a href="./development.html">Development</a>
 				<a href="./roadmap.html">Roadmap</a>
 			</aside>
+			<div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div>
 			<article class="docs-content">
 				<p class="eyebrow">Documentation</p><h1>Architecture</h1>
 				<p class="docs-lede">The preferred architecture sits beneath Wayland and X11 clients: capture a physical pointer through Linux evdev, preserve its non-wheel events, transform wheel motion, then expose the result as a virtual pointer through uinput.</p>
