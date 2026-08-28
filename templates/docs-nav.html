@@ -1,3 +1,4 @@
+<button class="docs-menu-toggle" type="button" aria-expanded="false" aria-controls="docs-mobile-nav" data-docs-menu-toggle aria-label="Open documentation menu"><span></span><span></span></button>
 <aside class="docs-nav">
 	<p>Documentation</p>
 	@if(name == 'docs/index'){<a class="active" href="@pathto('docs/index')">Introduction</a>}@if(name != 'docs/index'){<a href="@pathto('docs/index')">Introduction</a>}
@@ -6,3 +7,4 @@
 	@if(name == 'docs/development'){<a class="active" href="@pathto('docs/development')">Development</a>}@if(name != 'docs/development'){<a href="@pathto('docs/development')">Development</a>}
 	@if(name == 'docs/roadmap'){<a class="active" href="@pathto('docs/roadmap')">Roadmap</a>}@if(name != 'docs/roadmap'){<a href="@pathto('docs/roadmap')">Roadmap</a>}
 </aside>
+<div class="docs-mobile-nav" id="docs-mobile-nav" data-docs-mobile-nav hidden></div>
