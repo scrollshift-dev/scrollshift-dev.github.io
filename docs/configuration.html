@@ -57,7 +57,7 @@
 sudo make install</code></pre>
 				<pre><code>scrollshift service status
 sudo scrollshift doctor</code></pre>
-				<p>Normal installs require no device selection. ScrollShift uses udev input classification when available to discover conventional wheel mice automatically, excludes touchpads and touchscreens, and follows mice across unplug/replug and <code>/dev/input/eventN</code> renumbering. It can also attach more than one mouse.</p><p>For unusual hardware, <code>sudo scrollshift devices</code> shows classifications and wheel capabilities. <code>sudo scrollshift configure /dev/input/eventX</code> remains available as an explicit stable-identity override; it does not persist the event-node number itself.</p>
+				<p>Normal installs require no device selection. ScrollShift uses udev input classification when available to discover conventional wheel mice automatically, excludes touchpads, touchscreens, joysticks, tablets and keyboard auxiliary nodes, and follows mice across unplug/replug and <code>/dev/input/eventN</code> renumbering. When classification metadata is missing it uses a deliberately conservative evdev capability check so a non-mouse relative device is never mistaken for a mouse. It can also attach more than one mouse.</p><p>For unusual hardware, <code>sudo scrollshift devices</code> shows classifications and wheel capabilities. <code>sudo scrollshift configure /dev/input/eventX</code> remains available as an explicit stable-identity override for troubleshooting; it does not persist the event-node number itself.</p>
 				<h2>Current format</h2>
 				<pre><code>mode = auto
 profile = balanced
