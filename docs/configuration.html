@@ -51,14 +51,15 @@
 				<p class="eyebrow">Documentation</p><h1>Configuration & service</h1>
 				<p class="docs-lede">ScrollShift now has a deliberately small persistent configuration and a systemd service for everyday dogfooding. Event-node numbers are never persisted because <code>/dev/input/eventN</code> is not stable across boots or reconnects.</p>
 				<h2>Install</h2>
-				<pre><code>curl -fsSL https://scrollshift-dev.github.io/install | sh</code></pre>
-				<p>Installs the <code>scrollshift</code> binary to <code>~/.local/bin</code> by default, verifying the release SHA-256 checksum and never using sudo. Set <code>SCROLLSHIFT_INSTALL_DIR</code> to choose another directory. ScrollShift is a Linux input daemon, so the binary then needs the root-level service setup below. Or build from source:</p>
+				<pre><code>curl -fsSL https://scrollshift.dev/install.sh | sh</code></pre>
+				<p>Downloads and SHA-256 verifies the current Linux release, then uses ScrollShift's own hardened service installer to place the canonical binary at <code>/usr/local/bin/scrollshift</code> and register the managed systemd service. It may prompt for sudo. The service is left stopped until a valid mouse configuration exists. To download a verified standalone binary without changing the system, use <code>curl -fsSL https://scrollshift.dev/download.sh | sh</code>. Or build from source:</p>
 				<pre><code>make test
 sudo make install</code></pre>
 				<pre><code>sudo scrollshift devices
 sudo scrollshift configure /dev/input/eventX
 sudo scrollshift doctor
-sudo scrollshift service enable</code></pre>
+sudo scrollshift service install
+sudo scrollshift service start</code></pre>
 				<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p><p>If no matching pointer is present, the daemon waits. If the stored identity matches more than one candidate, ScrollShift refuses to grab a device instead of guessing. Its own virtual uinput device is excluded from capture candidates to prevent reinjection loops.</p>
 				<h2>Current format</h2>
 				<pre><code>device_vendor = 0x3151
@@ -68,13 +69,21 @@ profile = balanced
 reconnect_ms = 1000</code></pre>
 				<p>The preferred <code>balanced</code> profile is intentionally frozen while longer-term dogfooding continues. Configuration stays small: expose user concepts, not every internal tuning constant.</p>
 				<h2>Service controls</h2>
-				<pre><code>scrollshift service status
-scrollshift service logs
-sudo scrollshift service restart
-sudo scrollshift service stop
+				<pre><code>sudo scrollshift service install
+sudo scrollshift service uninstall
 sudo scrollshift service start
+sudo scrollshift service stop
+sudo scrollshift service restart
+scrollshift service status
+scrollshift service logs
+scrollshift service logs --follow
+sudo scrollshift service enable
 sudo scrollshift service disable</code></pre>
 				<div class="callout"><strong>Current permission model.</strong> Early releases use a root system service for evdev capture and uinput creation rather than broadly loosening access to input devices. A less-privileged model can be evaluated later without weakening the initial safety boundary.</div>
+			<h2>Update and uninstall</h2>
+				<pre><code>curl -fsSL https://scrollshift.dev/update.sh | sh
+curl -fsSL https://scrollshift.dev/uninstall.sh | sh</code></pre>
+				<p>Ordinary uninstall keeps <code>/etc/scrollshift</code>. Run the uninstall script with <code>--purge</code> only when you explicitly want to remove the saved mouse configuration too.</p>
 			</article>
 		</div>
 	</main>
