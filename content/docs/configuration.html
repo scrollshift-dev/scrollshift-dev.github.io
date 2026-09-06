@@ -5,21 +5,17 @@
 		<p class="docs-lede">ScrollShift now has a deliberately small persistent configuration and a systemd service for everyday dogfooding. Event-node numbers are never persisted because <code>/dev/input/eventN</code> is not stable across boots or reconnects.</p>
 		<h2>Install</h2>
 		<pre><code>curl -fsSL https://scrollshift.dev/install.sh | sh</code></pre>
-		<p>Downloads and SHA-256 verifies the current Linux release, then uses ScrollShift's own hardened service installer to place the canonical binary at <code>/usr/local/bin/scrollshift</code> and register the managed systemd service. It may prompt for sudo. The service is left stopped until a valid mouse configuration exists. To download a verified standalone binary without changing the system, use <code>curl -fsSL https://scrollshift.dev/download.sh | sh</code>. Or build from source:</p>
+		<p>Downloads and SHA-256 verifies the current Linux release, then uses ScrollShift's own hardened service installer to place the canonical binary at <code>/usr/local/bin/scrollshift</code>, register the managed systemd service, create the default automatic-discovery config, and start it. It may prompt for sudo. To download a verified standalone binary without changing the system, use <code>curl -fsSL https://scrollshift.dev/download.sh | sh</code>. Or build from source:</p>
 		<pre><code>make test
 sudo make install</code></pre>
-		<pre><code>sudo scrollshift devices
-sudo scrollshift configure /dev/input/eventX
-sudo scrollshift doctor
-sudo scrollshift service install
-sudo scrollshift service start</code></pre>
-		<p><code>configure</code> records the physical pointer's vendor/product identity and normalized kernel name. The daemon rediscovers the current event node automatically.</p><p>If no matching pointer is present, the daemon waits. If the stored identity matches more than one candidate, ScrollShift refuses to grab a device instead of guessing. Its own virtual uinput device is excluded from capture candidates to prevent reinjection loops.</p>
+		<pre><code>scrollshift service status
+sudo scrollshift doctor</code></pre>
+		<p>Normal installs require no device selection. ScrollShift uses udev input classification when available to discover conventional wheel mice automatically, excludes touchpads and touchscreens, and follows mice across unplug/replug and <code>/dev/input/eventN</code> renumbering. It can also attach more than one mouse.</p><p>For unusual hardware, <code>sudo scrollshift devices</code> shows classifications and wheel capabilities. <code>sudo scrollshift configure /dev/input/eventX</code> remains available as an explicit stable-identity override; it does not persist the event-node number itself.</p>
 		<h2>Current format</h2>
-		<pre><code>device_vendor = 0x3151
-device_product = 0x402d
-device_name = Example Wireless Mouse
+		<pre><code>mode = auto
 profile = balanced
 reconnect_ms = 1000</code></pre>
+		<p>A manual <code>configure DEVICE</code> override changes <code>mode</code> to <code>device</code> and stores stable vendor/product/name identity, never an event-node path.</p>
 		<p>The preferred <code>balanced</code> profile is intentionally frozen while longer-term dogfooding continues. Configuration stays small: expose user concepts, not every internal tuning constant.</p>
 		<h2>Service controls</h2>
 		<pre><code>sudo scrollshift service install
@@ -36,6 +32,6 @@ sudo scrollshift service disable</code></pre>
 	<h2>Update and uninstall</h2>
 		<pre><code>curl -fsSL https://scrollshift.dev/update.sh | sh
 curl -fsSL https://scrollshift.dev/uninstall.sh | sh</code></pre>
-		<p>Ordinary uninstall keeps <code>/etc/scrollshift</code>. Run the uninstall script with <code>--purge</code> only when you explicitly want to remove the saved mouse configuration too.</p>
+		<p>Ordinary uninstall keeps <code>/etc/scrollshift</code>. Run the uninstall script with <code>--purge</code> only when you explicitly want to remove the saved ScrollShift configuration too.</p>
 	</article>
 </div>
