@@ -49,3 +49,8 @@ At minimum:
 4. Check generated internal links resolve to files in `public/`.
 5. Keep claims evidence-scoped: distinguish proven hardware/desktop behavior from broader compatibility that remains untested.
 6. Reconcile docs/roadmap and public status language whenever a new hardware, desktop or application compatibility result becomes proven.
+
+
+## Public installation scripts
+
+`install.sh`, `download.sh`, `update.sh`, and `uninstall.sh` live at the website root and are copied byte-for-byte into generated `public/` for GitHub Pages. `/install` is retained as a compatibility alias for the original installer URL. The canonical script sources live in the ScrollShift application repository under `packaging/`; website publication must keep the copies byte-identical. Nift owns HTML/CSS/JS/SVG generation, while these executable shell endpoints are deliberate static pass-through assets.

@@ -3,3 +3,5 @@
 *~
 
 .nift/public/
+
+.nift/.lock
